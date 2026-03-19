@@ -7,7 +7,7 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-DB-blue?style=for-the-badge&logo=postgresql)](https://www.postgresql.org/) 
 [![Spring AI](https://img.shields.io/badge/Spring_AI-1.1.0-purple?style=for-the-badge&logo=spring)](https://spring.io/projects/spring-ai)
 
-<img src="https://github.com/user-attachments/assets/3d5b0e5c-2b9d-4c1a-9f2a-4d6e8f1c2b9d" alt="XChatMind Logo" width="200"/>
+<img src="./src/main/resources/static/logo.ico" alt="XChatMind Logo" width="200"/>
 
 **🚀 An AI-powered intelligent chat system supporting multi-model integration, RAG retrieval enhancement, and knowledge base management**
 
