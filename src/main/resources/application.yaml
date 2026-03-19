@@ -1,0 +1,72 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: xchatmind
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/xchatmind
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+
+  # spring ai
+  ai:
+    deepseek:
+      api-key: <your-deepseek-api-key>
+      base-url: https://api.deepseek.com/v1
+      chat:
+        options:
+          model: deepseek-chat
+
+    zhipuai:
+      api-key: <your-zhipuai-api-key>
+      base-url: https://api.zhipuai.com/v1
+      chat:
+        options:
+          model: glm-4.7
+
+    openai:
+      api-key: <your-openai-api-key>
+      base-url: https://api.openai.com/v1
+      chat:
+        options:
+          model: gpt-5
+
+    anthropic:
+      api-key: <your-anthropic-api-key>
+      base-url: https://api.anthropic.com/v1
+      chat:
+        options:
+          model: claude-3-5-sonnet-20241022
+
+  # e-mail
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: <your-email>
+    password: <your-email-password>
+    protocol: smtp
+    default-encoding: UTF-8
+
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connection timeout: 5000
+          timeout: 5000
+          write timeout: 5000
+
+# mybatis
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: org.xiaoyu.xchatmind.model.entity
+  type-handlers-package: org.xiaoyu.xchatmind.handler
+
+document:
+  storage:
+    base-path: ./data/documents

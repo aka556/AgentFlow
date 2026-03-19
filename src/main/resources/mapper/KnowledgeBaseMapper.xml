@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.xiaoyu.xchatmind.mapper.KnowledgeBaseMapper">
+
+    <resultMap id="BaseResultMap" type="org.xiaoyu.xchatmind.model.entity.KnowledgeBase">
+        <id property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="metadata" column="metadata" jdbcType="VARCHAR"/>
+        <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+        <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="org.xiaoyu.xchatmind.model.entity.KnowledgeBase"
+            keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO knowledge_base
+        (
+            name,
+            description,
+            metadata,
+            created_at,
+            updated_at
+        )
+        VALUES(
+               #{name},
+               #{description},
+               CAST(#{metadata} AS jsonb),
+               #{createdAt},
+               #{updatedAt}
+        )
+    </insert>
+
+    <update id="updateById" parameterType="org.xiaoyu.xchatmind.model.entity.KnowledgeBase">
+        UPDATE knowledge_base
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="metadata != null">
+                metadata = CAST(#{metadata} AS jsonb),
+            </if>
+            updated_at = NOW()
+        </set>
+        WHERE id = CAST(#{id} AS uuid)
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM knowledge_base
+        WHERE id = CAST(#{id} AS uuid)
+    </delete>
+
+    <select id="selectByIdBatch" resultMap="BaseResultMap">
+        SELECT id,
+               name,
+               description,
+               metadata::text AS metadata,
+               created_at,
+               updated_at
+        FROM knowledge_base
+            WHERE id IN
+            <foreach item="id" collection="list" separator="," open="(" close=")">
+                CAST(#{id} AS uuid)
+            </foreach>
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT id,
+               name,
+               description,
+               metadata::text AS metadata,
+               created_at,
+               updated_at
+        FROM knowledge_base
+        ORDER BY updated_at DESC
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT id,
+               name,
+               description,
+               metadata::text AS metadata,
+               created_at,
+               updated_at
+        FROM knowledge_base
+        WHERE id = CAST(#{id} AS uuid)
+    </select>
+</mapper>
